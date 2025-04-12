@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog - Login</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Personal Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- <h2>Login</h2>
+        <form id="loginForm">
+            <label for="lemail">Email:</label><br>
+            <input type="email" id="lemail" name="lemail" placeholder="example@domain.com" required><br><br>
+            <label for="lpassword">Password:</label><br>
+            <input type="password" id="lpassword" name="lpassword" placeholder="password.." required><br><br>
+            <button type="button" id="logInButton">Login</button>
+        </form> -->
+        <!-- <div class="circle1"></div>
+        <div class="circle2"></div> -->
+        <h2 class="signup">Login</h2>
+        <div class="glass-card">
+            <form id="signupForm" method="post">
+                <label for="email">Email:</label><br>
+                <input type="email" id="lemail" name="email" placeholder="example@domain.com" required><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="lpassword" name="password" placeholder="password.." required><br><br>
+                <button type="button" id="logInButton">Log In</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </footer>
+    
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS-UsXIP9lgNpMOc0z6C6iSaondOEULD0",
+            authDomain: "personal-blog-9f9e4.firebaseapp.com",
+            projectId: "personal-blog-9f9e4",
+            storageBucket: "personal-blog-9f9e4.appspot.com",
+            messagingSenderId: "614224441805",
+            appId: "1:614224441805:web:9f6726774538692f4c5484"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        
+        function signIn() {
+            var email = document.getElementById("lemail").value;
+            var password = document.getElementById("lpassword").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+
+                const user = userCredential.user;
+                console.log('Logged in:', user.email);
+                alert("login success.")
+                window.location.href = 'blog.html';
+
+                })
+                .catch((error) => {
+                console.error('Login error:', error.message);
+                alert("Login Failed! Please try again...")
+                });
+        }
+
+        document.getElementById("logInButton").addEventListener("click", function() {signIn();});
+
+        function logOut() {
+            signOut(auth)
+                .then(() => {
+
+                console.log('Logged out');
+                window.location.href = 'index.html';
+
+                })
+                .catch((error) => {
+                console.error('Logout error:', error.message);
+                });
+        }
+
+    </script>
+    
+
+</body>
+</html>

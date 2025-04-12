@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog - Sign Up</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>Welcome to Personal Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- <div class="circle1"></div>
+        <div class="circle2"></div> -->
+        <h2 class="signup">Sign Up</h2>
+        <div class="glass-card">
+            <form id="signupForm" method="post">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" placeholder="example@domain.com" required><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="password.." required><br><br>
+                <button type="button" id="signUpButton">Sign Up</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS-UsXIP9lgNpMOc0z6C6iSaondOEULD0",
+            authDomain: "personal-blog-9f9e4.firebaseapp.com",
+            projectId: "personal-blog-9f9e4",
+            storageBucket: "personal-blog-9f9e4.appspot.com",
+            messagingSenderId: "614224441805",
+            appId: "1:614224441805:web:9f6726774538692f4c5484"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        
+
+        function signUp() {
+            console.log("signUp called");
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+            
+                    const user = userCredential.user;
+                    console.log('Signed up:', user);
+                    alert("signUp success.")
+                    window.location.href = 'blog.html';
+            
+                })
+                .catch((error) => {
+                    console.error('Sign up error:', error.message);
+                    alert("SignUp Failed! Please try again...")
+                });
+        }
+        
+        document.getElementById("signUpButton").addEventListener("click", function() {
+            signUp();
+        });
+        
+        function signIn() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+
+                const user = userCredential.user;
+                console.log('Logged in:', user);
+                window.location.href = 'blog.html';
+
+                })
+                .catch((error) => {
+                console.error('Login error:', error.message);
+                });
+        }
+
+        function logOut() {
+            signOut(auth)
+                .then(() => {
+
+                console.log('Logged out');
+                window.location.href = 'index.html';
+
+                })
+                .catch((error) => {
+                console.error('Logout error:', error.message);
+                });
+        }
+
+    </script>
+    
+</body>
+</html>

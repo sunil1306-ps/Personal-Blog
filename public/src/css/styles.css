@@ -1,0 +1,217 @@
+/* styles.css */
+
+/* Reset default browser styles */
+body, h1, h2, p, ul, li, form {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+header div {
+  display: flex;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  background: #ff00cc;
+  background: -webkit-linear-gradient(
+      to right,
+      #333399,
+      #ff00cc
+  );
+  background: linear-gradient(
+      to right,
+      #333399,
+      #ff00cc
+  );
+  background-image: url(../images/peakpx.jpg);
+  background-size: contain;
+  height: 73vh;
+}
+
+.blogBG {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: #ff00cc;
+  background: -webkit-linear-gradient(
+      to right,
+      #333399,
+      #ff00cc
+  );
+  background: linear-gradient(
+      to right,
+      #333399,
+      #ff00cc
+  );
+}
+
+.crblog{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: transparent;
+}
+
+.circle1,
+.circle2 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.1)
+    );
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle1 {
+  top: 10%;
+  left: 10%;
+  transform: translate(-10%, -10%);
+}
+
+.circle2 {
+  top: 70%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.signup{
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.2)
+  );
+  backdrop-filter: blur(0.1rem);
+  width: 60%;
+  height: 90%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  background-color: #333;
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  text-align: center;
+  /* margin-top: auto; */
+}
+
+form {
+  color: black;
+  font-weight: bold;
+  padding: 20px;
+  width: 80%;
+  background-color: transparent;
+  /* border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in element's total width */
+}
+
+textarea {
+  height: 150px; /* Adjust as needed */
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Blue color for button */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+button:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+#blogPosts {
+  margin-top: 20px;
+}
+
+.post {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post h3 {
+  margin-top: 0;
+}
+
+.post p {
+  margin-bottom: 10px;
+}

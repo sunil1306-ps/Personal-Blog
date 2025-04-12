@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog - Blog</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Welcome to Personal Blog</h1>
+            <button class="lo" style="width: 100px;height: 40px;" id="logOutButton">Log Out</button>
+        </div>
+    </header>
+    <div class="blogBG">
+        <h2 style="color: rgb(255, 255, 255);">Create Blog Post</h2><br><br>
+        <div class="crblog">
+            <div class="glass-card">
+                <form id="blogPostForm">
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" required><br>
+                    <label for="content">Content:</label><br>
+                    <textarea id="content" name="content" rows="4" required></textarea><br>
+                    <button type="button" id="createBlogPost">Create Post</button>
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <h2 style="color: white;">Blog Posts</h2>
+        <div id="blogPosts">
+
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS-UsXIP9lgNpMOc0z6C6iSaondOEULD0",
+            authDomain: "personal-blog-9f9e4.firebaseapp.com",
+            projectId: "personal-blog-9f9e4",
+            storageBucket: "personal-blog-9f9e4.appspot.com",
+            messagingSenderId: "614224441805",
+            appId: "1:614224441805:web:9f6726774538692f4c5484"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const firestore = getFirestore(app)
+        const auth = getAuth();
+
+        async function displayBlogPosts() {
+            const blogPostsContainer = document.getElementById('blogPosts');
+            blogPostsContainer.innerHTML = "";
+
+            const querySnapshot = await getDocs(collection(firestore, 'blogPosts'))
+                .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const post = doc.data();
+
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('post');
+                    postElement.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <small>Author: ${post.author}</small>
+                    `;
+                    blogPostsContainer.appendChild(postElement);
+                });
+                })
+                .catch((error) => {
+                console.error('Error fetching blog posts:', error);
+                });
+        }
+
+        async function createBlogPost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const author = auth.currentUser.email;
+            console.log(author); // You can replace this with the actual author's name or fetch it dynamically if user authentication is implemented
+
+            const docRef = await addDoc(collection(firestore, 'blogPosts'), {
+                title: title,
+                content: content,
+                author: author
+            })
+            .then((docRef) => {
+                console.log('Blog post added with ID:', docRef.id);
+                alert("blog added successfull.")
+                displayBlogPosts();
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+            })
+            .catch((error) => {
+                console.error('Error adding blog post:', error);
+            });
+        }
+
+        document.getElementById("createBlogPost").addEventListener("click", function() {
+            createBlogPost();
+        });
+
+        function logOut() {
+            signOut(auth)
+                .then(() => {
+                console.log('Logged out');
+                alert("Logged out successfully.");
+                window.location.href = 'index.html';
+
+                })
+                .catch((error) => {
+                console.error('Logout error:', error.message);
+                });
+        }
+
+        document.getElementById("logOutButton").addEventListener("click", function() {
+            logOut();
+        });
+
+        window.addEventListener('load', () => {
+            displayBlogPosts();
+        });
+
+    </script>
+
+</body>
+</html>
